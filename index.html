@@ -35,6 +35,10 @@
         <h1>Generative Art</h1>
         <div class="artworks">
             <div class="artwork">
+                <h2>Circle Waves</h2>
+                <canvas id="circleWaves"></canvas>
+            </div>
+            <div class="artwork">
                 <h2>Lines</h2>
                 <canvas id="lines"></canvas>
             </div>
@@ -77,6 +81,17 @@
             };
 
             window.GenerativeArt = Object.assign({}, window.GenerativeArt, GenerativeArt);
+        </script>
+
+        <script src="lib/circle-waves.js"></script>
+        <script>
+            (() => {
+                window.GenerativeArt.addArtwork('circleWaves', (({canvas, regenerateButton}) => {
+                    window.GenerativeArt.circleWaves.run(canvas);
+
+                    regenerateButton.addEventListener('click', () =>window.GenerativeArt.circleWaves.run(canvas));
+                }));
+            })();
         </script>
 
         <script src="lib/lines.js"></script>
