@@ -4,9 +4,10 @@ const util = require('util');
 
 // const artwork = require('./lib/segments');
 const artwork = require('./lib/circle-waves');
+// const artwork = require('./lib/semi-circles');
 
 const create = ({ id, index, options, run, name, outputPath }) => new Promise((resolve, reject) => {
-    const size = 4092;
+    const size = 1000;
     const canvas = createCanvas(size, size);
     const completedCanvas = run(canvas, options);
     const out = fs.createWriteStream(`${outputPath}/${name}-${id}-${index}.png`);
