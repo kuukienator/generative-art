@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Generative Art</title>
         <style>
             body {
@@ -47,12 +47,15 @@
                     width: 100%;
                 }
             }
-
         </style>
     </head>
     <body>
         <h1>Generative Art</h1>
         <div class="artworks">
+            <div class="artwork">
+                <h2>Semi Circles</h2>
+                <canvas id="semiCircles"></canvas>
+            </div>
             <div class="artwork">
                 <h2>Circle Waves</h2>
                 <canvas id="circleWaves"></canvas>
@@ -95,98 +98,169 @@
                     regenerateButton.innerText = 'Regenerate';
 
                     canvas.parentElement.appendChild(regenerateButton);
-                    callback({canvas, regenerateButton});
+                    callback({ canvas, regenerateButton });
                 }
             };
 
-            window.GenerativeArt = Object.assign({}, window.GenerativeArt, GenerativeArt);
+            window.GenerativeArt = Object.assign(
+                {},
+                window.GenerativeArt,
+                GenerativeArt
+            );
+        </script>
+
+        <script src="lib/semi-circles.js"></script>
+        <script>
+            (() => {
+                window.GenerativeArt.addArtwork(
+                    'semiCircles',
+                    ({ canvas, regenerateButton }) => {
+                        window.GenerativeArt.semiCircles.run(canvas);
+
+                        regenerateButton.addEventListener('click', () =>
+                            window.GenerativeArt.semiCircles.run(canvas)
+                        );
+                    }
+                );
+            })();
         </script>
 
         <script src="lib/circle-waves.js"></script>
         <script>
             (() => {
-                window.GenerativeArt.addArtwork('circleWaves', (({canvas, regenerateButton}) => {
-                    window.GenerativeArt.circleWaves.run(canvas);
+                window.GenerativeArt.addArtwork(
+                    'circleWaves',
+                    ({ canvas, regenerateButton }) => {
+                        window.GenerativeArt.circleWaves.run(canvas);
 
-                    regenerateButton.addEventListener('click', () => window.GenerativeArt.circleWaves.run(canvas));
-                }));
+                        regenerateButton.addEventListener('click', () =>
+                            window.GenerativeArt.circleWaves.run(canvas)
+                        );
+                    }
+                );
             })();
         </script>
 
         <script src="lib/lines.js"></script>
         <script>
             (() => {
-                window.GenerativeArt.addArtwork('lines', (({canvas, regenerateButton}) => {
-                    const colors = ['#941B0C', '#BC3908', '#F6AA1C'];
-                    const options = {...window.GenerativeArt.lines.defaultOptions, maxDepth: 8, colors, lineWidthFactor: 0.0045, count: 5};
-                    window.GenerativeArt.lines.run(canvas, options);
+                window.GenerativeArt.addArtwork(
+                    'lines',
+                    ({ canvas, regenerateButton }) => {
+                        const colors = ['#941B0C', '#BC3908', '#F6AA1C'];
+                        const options = {
+                            ...window.GenerativeArt.lines.defaultOptions,
+                            maxDepth: 8,
+                            colors,
+                            lineWidthFactor: 0.0045,
+                            count: 5
+                        };
+                        window.GenerativeArt.lines.run(canvas, options);
 
-                    regenerateButton.addEventListener('click', () =>window.GenerativeArt.lines.run(canvas, options));
-                }));
+                        regenerateButton.addEventListener('click', () =>
+                            window.GenerativeArt.lines.run(canvas, options)
+                        );
+                    }
+                );
             })();
         </script>
 
         <script src="lib/waves.js"></script>
         <script>
             (() => {
-                window.GenerativeArt.addArtwork('waves', (({canvas, regenerateButton}) => {
-                    // const colors = ['#941B0C', '#BC3908', '#F6AA1C'];
-                    const options = {...window.GenerativeArt.waves.defaultOptions };
-                    window.GenerativeArt.waves.run(canvas, options);
+                window.GenerativeArt.addArtwork(
+                    'waves',
+                    ({ canvas, regenerateButton }) => {
+                        // const colors = ['#941B0C', '#BC3908', '#F6AA1C'];
+                        const options = {
+                            ...window.GenerativeArt.waves.defaultOptions
+                        };
+                        window.GenerativeArt.waves.run(canvas, options);
 
-                    regenerateButton.addEventListener('click', () => window.GenerativeArt.waves.run(canvas, options));
-                }));
+                        regenerateButton.addEventListener('click', () =>
+                            window.GenerativeArt.waves.run(canvas, options)
+                        );
+                    }
+                );
             })();
         </script>
 
         <script src="lib/circles.js"></script>
         <script>
             (() => {
-                window.GenerativeArt.addArtwork('circles', (({canvas, regenerateButton}) => {
-                    // const colors = ['#941B0C', '#BC3908', '#F6AA1C'];
-                    const options = {...window.GenerativeArt.circles.defaultOptions };
-                    window.GenerativeArt.circles.run(canvas, options);
+                window.GenerativeArt.addArtwork(
+                    'circles',
+                    ({ canvas, regenerateButton }) => {
+                        // const colors = ['#941B0C', '#BC3908', '#F6AA1C'];
+                        const options = {
+                            ...window.GenerativeArt.circles.defaultOptions
+                        };
+                        window.GenerativeArt.circles.run(canvas, options);
 
-                    regenerateButton.addEventListener('click', () => window.GenerativeArt.circles.run(canvas, options));
-                }));
+                        regenerateButton.addEventListener('click', () =>
+                            window.GenerativeArt.circles.run(canvas, options)
+                        );
+                    }
+                );
             })();
         </script>
         <script src="lib/heat-waves.js"></script>
         <script>
             (() => {
-                window.GenerativeArt.addArtwork('heatWaves', (({canvas, regenerateButton}) => {
-                    // const colors = ['#941B0C', '#BC3908', '#F6AA1C'];
-                    const options = {...window.GenerativeArt.heatWaves.defaultOptions };
-                    window.GenerativeArt.heatWaves.run(canvas, options);
+                window.GenerativeArt.addArtwork(
+                    'heatWaves',
+                    ({ canvas, regenerateButton }) => {
+                        // const colors = ['#941B0C', '#BC3908', '#F6AA1C'];
+                        const options = {
+                            ...window.GenerativeArt.heatWaves.defaultOptions
+                        };
+                        window.GenerativeArt.heatWaves.run(canvas, options);
 
-                    regenerateButton.addEventListener('click', () => window.GenerativeArt.heatWaves.run(canvas, options));
-                }));
+                        regenerateButton.addEventListener('click', () =>
+                            window.GenerativeArt.heatWaves.run(canvas, options)
+                        );
+                    }
+                );
             })();
         </script>
 
         <script src="lib/short-lines.js"></script>
         <script>
             (() => {
-                window.GenerativeArt.addArtwork('shortLines', (({canvas, regenerateButton}) => {
-                    // const colors = ['#941B0C', '#BC3908', '#F6AA1C'];
-                    const options = {...window.GenerativeArt.shortLines.defaultOptions };
-                    window.GenerativeArt.shortLines.run(canvas, options);
+                window.GenerativeArt.addArtwork(
+                    'shortLines',
+                    ({ canvas, regenerateButton }) => {
+                        // const colors = ['#941B0C', '#BC3908', '#F6AA1C'];
+                        const options = {
+                            ...window.GenerativeArt.shortLines.defaultOptions
+                        };
+                        window.GenerativeArt.shortLines.run(canvas, options);
 
-                    regenerateButton.addEventListener('click', () => window.GenerativeArt.shortLines.run(canvas, options));
-                }));
+                        regenerateButton.addEventListener('click', () =>
+                            window.GenerativeArt.shortLines.run(canvas, options)
+                        );
+                    }
+                );
             })();
         </script>
 
         <script src="lib/segments.js"></script>
         <script>
             (() => {
-                window.GenerativeArt.addArtwork('segments', (({canvas, regenerateButton}) => {
-                    // const colors = ['#941B0C', '#BC3908', '#F6AA1C'];
-                    const options = {...window.GenerativeArt.segments.defaultOptions };
-                    window.GenerativeArt.segments.run(canvas, options);
+                window.GenerativeArt.addArtwork(
+                    'segments',
+                    ({ canvas, regenerateButton }) => {
+                        // const colors = ['#941B0C', '#BC3908', '#F6AA1C'];
+                        const options = {
+                            ...window.GenerativeArt.segments.defaultOptions
+                        };
+                        window.GenerativeArt.segments.run(canvas, options);
 
-                    regenerateButton.addEventListener('click', () => window.GenerativeArt.segments.run(canvas, options));
-                }));
+                        regenerateButton.addEventListener('click', () =>
+                            window.GenerativeArt.segments.run(canvas, options)
+                        );
+                    }
+                );
             })();
         </script>
     </body>
