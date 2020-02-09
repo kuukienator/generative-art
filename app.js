@@ -2,10 +2,12 @@ const { createCanvas } = require('canvas');
 const fs = require('fs');
 const util = require('util');
 
-const artwork = require('./lib/segments');
+// const artwork = require('./lib/segments');
+const artwork = require('./lib/circle-waves');
 
 const create = ({ id, index, options, run, name, outputPath }) => new Promise((resolve, reject) => {
-    const canvas = createCanvas(1024, 1024);
+    const size = 4092;
+    const canvas = createCanvas(size, size);
     const completedCanvas = run(canvas, options);
     const out = fs.createWriteStream(`${outputPath}/${name}-${id}-${index}.png`);
     const stream = completedCanvas.createPNGStream();

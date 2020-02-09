@@ -2,6 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Generative Art</title>
         <style>
             body {
@@ -22,10 +23,28 @@
                 grid-gap: 20px;
             }
 
+            .artwork {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            button {
+                margin: 0.5em;
+                font-size: 1em;
+                padding: 0.2em 1em;
+            }
+
             @media (max-width: 1240px) {
                 .artworks {
                     display: grid;
                     grid-template-columns: 1fr;
+                }
+            }
+
+            @media (max-width: 650px) {
+                canvas {
+                    width: 100%;
                 }
             }
 
@@ -89,7 +108,7 @@
                 window.GenerativeArt.addArtwork('circleWaves', (({canvas, regenerateButton}) => {
                     window.GenerativeArt.circleWaves.run(canvas);
 
-                    regenerateButton.addEventListener('click', () =>window.GenerativeArt.circleWaves.run(canvas));
+                    regenerateButton.addEventListener('click', () => window.GenerativeArt.circleWaves.run(canvas));
                 }));
             })();
         </script>
