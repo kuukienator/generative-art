@@ -53,6 +53,10 @@
         <h1>Generative Art</h1>
         <div class="artworks">
             <div class="artwork">
+                <h2>Playground</h2>
+                <canvas id="playground"></canvas>
+            </div>
+            <div class="artwork">
                 <h2>More Waves</h2>
                 <canvas id="moreWaves"></canvas>
             </div>
@@ -111,6 +115,22 @@
                 window.GenerativeArt,
                 GenerativeArt
             );
+        </script>
+
+        <script src="lib/playground.js"></script>
+        <script>
+            (() => {
+                window.GenerativeArt.addArtwork(
+                    'playground',
+                    ({ canvas, regenerateButton }) => {
+                        window.GenerativeArt.playground.run(canvas);
+
+                        regenerateButton.addEventListener('click', () =>
+                            window.GenerativeArt.playground.run(canvas)
+                        );
+                    }
+                );
+            })();
         </script>
 
         <script src="lib/more-waves.js"></script>
