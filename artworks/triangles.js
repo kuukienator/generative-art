@@ -209,13 +209,13 @@ const artwork = () => {
         if (currentAnimationFrame) {
             window.cancelAnimationFrame(currentAnimationFrame);
         }
-        run(canvas);
-        // animationLoop(1000, () => run(canvas));
+        animationLoop(300, () => run(canvas));
 
     }
 
     return {
-        run: animate,
+        run,
+        animate,
         name: 'Triangles'
     };
 }

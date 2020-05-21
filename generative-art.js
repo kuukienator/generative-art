@@ -51,8 +51,8 @@ const GenerativeArt = {
 };
 
 GenerativeArt.addArtwork(PlayGround());
-GenerativeArt.addArtwork(SemiCirclesArtwork());
 GenerativeArt.addArtwork(TrianglesArtwork());
+GenerativeArt.addArtwork(SemiCirclesArtwork());
 GenerativeArt.addArtwork(CicleWavesArtwork());
 const linesArtwork = LinesArtwork();
 GenerativeArt.addArtwork(linesArtwork, {
