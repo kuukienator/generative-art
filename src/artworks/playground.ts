@@ -1,15 +1,12 @@
 //@ts-check
 
-import { getRandomInt, radians} from '../lib/math.js';
+import { getRandomInt, radians} from '../lib/math';
+import { ArtWork } from '../types/index';
 
-const artwork = () => {
+const artwork = (): ArtWork => {
     let currentAnimationFrame = null;
 
-    /**
-     * 
-     * @param {HTMLCanvasElement} canvas 
-     */
-    const run = (canvas) => {
+    const run = (canvas: HTMLCanvasElement) => {
         if (currentAnimationFrame) {
             window.cancelAnimationFrame(currentAnimationFrame);
         }
@@ -205,7 +202,7 @@ const artwork = () => {
         return canvas;
     };
 
-    const animationLoop = (stepSize = 1000, animateCallback) => {
+    const animationLoop = (stepSize:number = 1000, animateCallback: Function) => {
         animateCallback();
         let start = null;
 
@@ -227,23 +224,17 @@ const artwork = () => {
         currentAnimationFrame = window.requestAnimationFrame(step);
     }
 
-    /**
-     * 
-     * @param {HTMLCanvasElement} canvas 
-     */
-    const animate = (canvas) => {
+    const animate = (canvas: HTMLCanvasElement) => {
         if (currentAnimationFrame) {
             window.cancelAnimationFrame(currentAnimationFrame);
         }
-        // run(canvas);
         animationLoop(200, () => run(canvas));
 
     }
 
-
     return  {
-        run: run,
-        animate: animate,
+        run,
+        animate,
         name: 'Playground'
     };
 };

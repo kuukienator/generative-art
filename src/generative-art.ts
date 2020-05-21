@@ -1,4 +1,4 @@
-import PlayGround from './artworks/playground.js';
+import PlayGround from './artworks/playground';
 import TrianglesArtwork from './artworks/triangles.js';
 import SemiCirclesArtwork from './artworks/semi-circles.js';
 import CicleWavesArtwork from './artworks/circle-waves.js';
@@ -9,8 +9,10 @@ import HeatWavesArtwork from './artworks/heat-waves.js';
 import ShortLinesArtwork from './artworks/short-lines.js';
 import SegmentsArtwork from './artworks/segments.js';
 
+import { ArtWork } from './types/index';
+
 const GenerativeArt = {
-    addArtwork: (artwork, options) => {
+    addArtwork: (artwork: ArtWork, options: any = {}) => {
         const artWorks = document.querySelector('.artworks');
         const artWorkContainer = document.createElement('div');
         artWorkContainer.classList.add('artwork');
@@ -32,7 +34,7 @@ const GenerativeArt = {
         artWorkContainer.appendChild(canvas);
         artWorkContainer.appendChild(regenerateButton);
 
-        if (typeof artwork.animate === 'function') {
+        if (artwork.animate) {
             const animateButton = document.createElement('button');
             animateButton.innerText = 'Animate';
             artWorkContainer.appendChild(animateButton);
