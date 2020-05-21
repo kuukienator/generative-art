@@ -1,15 +1,10 @@
-//@ts-check
-
-import { getRandomInt, radians } from '../lib/math';
 import { ArtWork } from '../types/index';
+import { getRandomInt } from '../lib/math';
 
 const artwork = (): ArtWork => {
   let currentAnimationFrame = null;
 
   const run = (canvas: HTMLCanvasElement) => {
-    if (currentAnimationFrame) {
-      window.cancelAnimationFrame(currentAnimationFrame);
-    }
     const context = canvas.getContext('2d');
     const size = canvas.width;
     const COLUMN_COUNT = 20;
@@ -145,21 +140,20 @@ const artwork = (): ArtWork => {
       (color) => `hsl(${color.h}, ${color.s}%, ${color.l}%, 1)`
     );
 
-    const drawDebugCirle = (ctx, point) => {
-      ctx.beginPath();
-      ctx.arc(point[0], point[1], 3, 0, 2 * Math.PI);
-      ctx.fill();
-    };
-
     /**
      *
-     * @param {number} r
-     * @param {number} a
-     * @param {number} x
-     * @param {number} y
+     * @param {CanvasRenderingContext2D} ctx
+     * @param {Array<number>} p1
+     * @param {Array<number>} p2
+     * @param {Array<number>} p3
      */
-    const getCirclePointByAngle = (r, a, x, y) => {
-      return [x + r * Math.cos(radians(a)), y + r * Math.sin(radians(a))];
+    const drawTriangle = (ctx, p1, p2, p3) => {
+      ctx.fillStyle = colors[getRandomInt(0, colors.length)];
+      ctx.beginPath();
+      ctx.moveTo(p1[0], p1[1]);
+      ctx.lineTo(p2[0], p2[1]);
+      ctx.lineTo(p3[0], p3[1]);
+      ctx.fill();
     };
 
     /**
@@ -167,66 +161,30 @@ const artwork = (): ArtWork => {
      * @param {CanvasRenderingContext2D} ctx
      * @param {number} x
      * @param {number} y
-     * @param {number} radius
-     * @param {number} sides
-     * @param {number} offest
-     * @param {string} color
+     * @param {number} w
+     * @param {number} h
      */
-    const drawPolygon = (
-      ctx,
-      x,
-      y,
-      radius,
-      sides,
-      offest = 0,
-      color = 'rgba(255, 0, 0, 0.1)'
-    ) => {
-      const arcAngle = 360 / sides;
-      ctx.fillStyle = color;
-      ctx.beginPath();
-
-      for (let i = 0; i <= sides; i++) {
-        const point = getCirclePointByAngle(
-          getRandomInt(radius, radius * 1.2),
-          i * arcAngle + offest,
-          x,
-          y
-        );
-        if (i === 0) {
-          ctx.moveTo(point[0], point[1]);
-        }
-
-        ctx.lineTo(point[0], point[1]);
-      }
-      ctx.fill();
+    const drawSquareWithTriangles = (ctx, x, y, w, h) => {
+      drawTriangle(ctx, [x, y], [x + w, y], [x, y + h]);
+      drawTriangle(ctx, [x + w, y], [x + w, y + h], [x, y + h]);
     };
 
-    const drawBlot = (x, y, r, color) => {
-      for (let i = 0; i < 50; i++) {
-        drawPolygon(
+    for (let i = 0; i < COLUMN_COUNT; i++) {
+      for (let j = 0; j < COLUMN_COUNT; j++) {
+        drawSquareWithTriangles(
           context,
-          x,
-          y,
-          getRandomInt(r, r + 10),
-          getRandomInt(6, 12),
-          getRandomInt(0, 60),
-          color
+          i * CELL_SIZE,
+          j * CELL_SIZE,
+          CELL_SIZE,
+          CELL_SIZE
         );
       }
-    };
-
-    drawBlot(size / 2, size / 2, 100, 'rgba(255, 0, 0, 0.1)');
-    drawBlot(size / 2, size / 3, 80, 'rgba(255, 160, 0, 0.1)');
-    drawBlot(size / 3, size / 3, 70, 'rgba(255, 200, 0, 0.1)');
-    drawBlot(size / 3, size / 2, 110, 'rgba(0, 255, 100, 0.1)');
+    }
 
     return canvas;
   };
 
-  const animationLoop = (
-    stepSize: number = 1000,
-    animateCallback: Function
-  ) => {
+  const animationLoop = (stepSize = 1000, animateCallback) => {
     animateCallback();
     let start = null;
 
@@ -248,17 +206,21 @@ const artwork = (): ArtWork => {
     currentAnimationFrame = window.requestAnimationFrame(step);
   };
 
-  const animate = (canvas: HTMLCanvasElement) => {
+  /**
+   *
+   * @param {HTMLCanvasElement} canvas
+   */
+  const animate = (canvas) => {
     if (currentAnimationFrame) {
       window.cancelAnimationFrame(currentAnimationFrame);
     }
-    animationLoop(200, () => run(canvas));
+    animationLoop(300, () => run(canvas));
   };
 
   return {
     run,
     animate,
-    name: 'Playground',
+    name: 'Triangles',
   };
 };
 

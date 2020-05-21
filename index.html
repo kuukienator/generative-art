@@ -1,58 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Generative Art</title>
-        <style>
-            body {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                font-family: monospace;
-                text-align: center;
-                align-items: center;
-            }
-            canvas {
-                width: 600px;
-            }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Generative Art</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        font-family: monospace;
+        text-align: center;
+        align-items: center;
+      }
+      canvas {
+        width: 600px;
+      }
 
-            .artworks {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                grid-gap: 20px;
-            }
+      .artworks {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 20px;
+      }
 
-            .artwork {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
+      .artwork {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
 
-            button {
-                margin: 0.5em;
-                font-size: 1em;
-                padding: 0.2em 1em;
-            }
+      button {
+        margin: 0.5em;
+        font-size: 1em;
+        padding: 0.2em 1em;
+      }
 
-            @media (max-width: 1240px) {
-                .artworks {
-                    display: grid;
-                    grid-template-columns: 1fr;
-                }
-            }
+      @media (max-width: 1240px) {
+        .artworks {
+          display: grid;
+          grid-template-columns: 1fr;
+        }
+      }
 
-            @media (max-width: 650px) {
-                canvas {
-                    width: 100%;
-                }
-            }
-        </style>
-    </head>
-    <body>
-        <h1>Generative Art</h1>
-        <div class="artworks"></div>
+      @media (max-width: 650px) {
+        canvas {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Generative Art</h1>
+    <div class="artworks"></div>
 
-        <script type="module" src="./built/generative-art.js"></script>
-    </body>
+    <script src="./built/generative-art.js"></script>
+  </body>
 </html>

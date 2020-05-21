@@ -1,5 +1,5 @@
 import PlayGround from './artworks/playground';
-import TrianglesArtwork from './artworks/triangles.js';
+import TrianglesArtwork from './artworks/triangles';
 import SemiCirclesArtwork from './artworks/semi-circles.js';
 import CicleWavesArtwork from './artworks/circle-waves.js';
 import LinesArtwork from './artworks/lines.js';
@@ -12,44 +12,42 @@ import SegmentsArtwork from './artworks/segments.js';
 import { ArtWork } from './types/index';
 
 const GenerativeArt = {
-    addArtwork: (artwork: ArtWork, options: any = {}) => {
-        const artWorks = document.querySelector('.artworks');
-        const artWorkContainer = document.createElement('div');
-        artWorkContainer.classList.add('artwork');
+  addArtwork: (artwork: ArtWork, options: any = {}) => {
+    const artWorks = document.querySelector('.artworks');
+    const artWorkContainer = document.createElement('div');
+    artWorkContainer.classList.add('artwork');
 
-        const artWorkHeadline = document.createElement('h2');
-        artWorkHeadline.textContent = artwork.name;
+    const artWorkHeadline = document.createElement('h2');
+    artWorkHeadline.textContent = artwork.name;
 
-        const canvas = document.createElement('canvas');
-        canvas.width = 600;
-        canvas.height = 600;
+    const canvas = document.createElement('canvas');
+    canvas.width = 600;
+    canvas.height = 600;
 
-        const regenerateButton = document.createElement('button');
-        regenerateButton.innerText = 'Regenerate';
-        regenerateButton.addEventListener('click', () =>
-            artwork.run(canvas, options)
-        );
+    const regenerateButton = document.createElement('button');
+    regenerateButton.innerText = 'Regenerate';
+    regenerateButton.addEventListener('click', () =>
+      artwork.run(canvas, options)
+    );
 
-        artWorkContainer.appendChild(artWorkHeadline);
-        artWorkContainer.appendChild(canvas);
-        artWorkContainer.appendChild(regenerateButton);
+    artWorkContainer.appendChild(artWorkHeadline);
+    artWorkContainer.appendChild(canvas);
+    artWorkContainer.appendChild(regenerateButton);
 
-        if (artwork.animate) {
-            const animateButton = document.createElement('button');
-            animateButton.innerText = 'Animate';
-            artWorkContainer.appendChild(animateButton);
+    if (artwork.animate) {
+      const animateButton = document.createElement('button');
+      animateButton.innerText = 'Animate';
+      artWorkContainer.appendChild(animateButton);
 
-            animateButton.addEventListener('click', () =>
-                artwork.animate(canvas, options)
-            );
-        }
+      animateButton.addEventListener('click', () =>
+        artwork.animate(canvas, options)
+      );
+    }
 
-        artWorks.appendChild(artWorkContainer);
+    artWorks.appendChild(artWorkContainer);
 
-        artwork.run(canvas, options);
-
-        // callback({ canvas, regenerateButton });
-    },
+    artwork.run(canvas, options);
+  },
 };
 
 GenerativeArt.addArtwork(PlayGround());
@@ -58,30 +56,30 @@ GenerativeArt.addArtwork(SemiCirclesArtwork());
 GenerativeArt.addArtwork(CicleWavesArtwork());
 const linesArtwork = LinesArtwork();
 GenerativeArt.addArtwork(linesArtwork, {
-    ...linesArtwork.defaultOptions,
-    maxDepth: 8,
-    colors: ['#941B0C', '#BC3908', '#F6AA1C'],
-    lineWidthFactor: 0.0045,
-    count: 5,
+  ...linesArtwork.defaultOptions,
+  maxDepth: 8,
+  colors: ['#941B0C', '#BC3908', '#F6AA1C'],
+  lineWidthFactor: 0.0045,
+  count: 5,
 });
 const wavesArtwork = WavesArtwork();
 GenerativeArt.addArtwork(wavesArtwork, {
-    ...wavesArtwork.defaultOptions,
+  ...wavesArtwork.defaultOptions,
 });
 
 const cirlceArtwork = CircleArtwork();
 GenerativeArt.addArtwork(cirlceArtwork, {
-    ...cirlceArtwork.defaultOptions,
+  ...cirlceArtwork.defaultOptions,
 });
 const heatWavesArtwork = HeatWavesArtwork();
 GenerativeArt.addArtwork(heatWavesArtwork, {
-    ...heatWavesArtwork.defaultOptions,
+  ...heatWavesArtwork.defaultOptions,
 });
 const shortLinesArtwork = ShortLinesArtwork();
 GenerativeArt.addArtwork(shortLinesArtwork, {
-    ...shortLinesArtwork.defaultOptions,
+  ...shortLinesArtwork.defaultOptions,
 });
 const segmentsArtwork = SegmentsArtwork();
 GenerativeArt.addArtwork(segmentsArtwork, {
-    ...segmentsArtwork.defaultOptions,
+  ...segmentsArtwork.defaultOptions,
 });
