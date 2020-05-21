@@ -1,4 +1,4 @@
-(() => {
+const artwork = () => {
     const run = (canvas) => {
         const context = canvas.getContext("2d");
         //context.filter = 'best';
@@ -195,17 +195,10 @@
         return canvas;
     };
 
-    const artwork = {
+    return {
         run,
-        name: 'semiCircles'
+        name: 'Semi Cirlces'
     };
+}
 
-    if (typeof module !== "undefined" && typeof module.exports !== "undefined") {
-        module.exports = artwork;
-    } else {
-        window.GenerativeArt = Object.assign({}, window.GenerativeArt, {
-            [artwork.name]: artwork
-        });
-    }
-
-})();
+export default artwork;

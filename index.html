@@ -51,257 +51,94 @@
     </head>
     <body>
         <h1>Generative Art</h1>
-        <div class="artworks">
-            <div class="artwork">
-                <h2>Playground</h2>
-                <canvas id="playground"></canvas>
-            </div>
-            <div class="artwork">
-                <h2>More Waves</h2>
-                <canvas id="moreWaves"></canvas>
-            </div>
-            <div class="artwork">
-                <h2>Semi Circles</h2>
-                <canvas id="semiCircles"></canvas>
-            </div>
-            <div class="artwork">
-                <h2>Circle Waves</h2>
-                <canvas id="circleWaves"></canvas>
-            </div>
-            <div class="artwork">
-                <h2>Lines</h2>
-                <canvas id="lines"></canvas>
-            </div>
-            <div class="artwork">
-                <h2>Waves</h2>
-                <canvas id="waves"></canvas>
-            </div>
-            <div class="artwork">
-                <h2>Circles</h2>
-                <canvas id="circles"></canvas>
-            </div>
+        <div class="artworks"></div>
 
-            <div class="artwork">
-                <h2>Heat Waves</h2>
-                <canvas id="heatWaves"></canvas>
-            </div>
-            <div class="artwork">
-                <h2>Short Lines</h2>
-                <canvas id="shortLines"></canvas>
-            </div>
-            <div class="artwork">
-                <h2>Segments</h2>
-                <canvas id="segments"></canvas>
-            </div>
-        </div>
+        <script type="module">
+            import PlayGround from '/artworks/playground.js';
+            import TrianglesArtwork from '/artworks/triangles.js';
+            import SemiCirclesArtwork from '/artworks/semi-circles.js';
+            import CicleWavesArtwork from '/artworks/circle-waves.js';
+            import LinesArtwork from '/artworks/lines.js';
+            import WavesArtwork from '/artworks/waves.js';
+            import CircleArtwork from '/artworks/circles.js';
+            import HeatWavesArtwork from '/artworks/heat-waves.js';
+            import ShortLinesArtwork from '/artworks/short-lines.js';
+            import SegmentsArtwork from '/artworks/segments.js';
 
-        <script>
             const GenerativeArt = {
-                addArtwork: (name, callback) => {
-                    const canvas = document.querySelector(`canvas#${name}`);
+                addArtwork: (artwork, options) => {
+                    const artWorks = document.querySelector('.artworks');
+                    const artWorkContainer = document.createElement('div');
+                    artWorkContainer.classList.add('artwork');
+
+                    const artWorkHeadline = document.createElement('h2');
+                    artWorkHeadline.textContent = artwork.name;
+
+                    const canvas = document.createElement('canvas');
                     canvas.width = 600;
                     canvas.height = 600;
 
                     const regenerateButton = document.createElement('button');
                     regenerateButton.innerText = 'Regenerate';
+                    regenerateButton.addEventListener('click', () =>
+                        artwork.run(canvas, options)
+                    );
 
-                    canvas.parentElement.appendChild(regenerateButton);
-                    callback({ canvas, regenerateButton });
-                }
+                    artWorkContainer.appendChild(artWorkHeadline);
+                    artWorkContainer.appendChild(canvas);
+                    artWorkContainer.appendChild(regenerateButton);
+
+                    if (typeof artwork.animate === 'function') {
+                        const animateButton = document.createElement('button');
+                        animateButton.innerText = 'Animate';
+                        artWorkContainer.appendChild(animateButton);
+
+                        animateButton.addEventListener('click', () =>
+                            artwork.animate(canvas, options)
+                        );
+                    }
+
+                    artWorks.appendChild(artWorkContainer);
+
+                    artwork.run(canvas, options);
+
+                    // callback({ canvas, regenerateButton });
+                },
             };
 
-            window.GenerativeArt = Object.assign(
-                {},
-                window.GenerativeArt,
-                GenerativeArt
-            );
-        </script>
+            GenerativeArt.addArtwork(PlayGround());
+            GenerativeArt.addArtwork(SemiCirclesArtwork());
+            GenerativeArt.addArtwork(TrianglesArtwork());
+            GenerativeArt.addArtwork(CicleWavesArtwork());
+            const linesArtwork = LinesArtwork();
+            GenerativeArt.addArtwork(linesArtwork, {
+                ...linesArtwork.defaultOptions,
+                maxDepth: 8,
+                colors: ['#941B0C', '#BC3908', '#F6AA1C'],
+                lineWidthFactor: 0.0045,
+                count: 5,
+            });
+            const wavesArtwork = WavesArtwork();
+            GenerativeArt.addArtwork(wavesArtwork, {
+                ...wavesArtwork.defaultOptions,
+            });
 
-        <script src="lib/playground.js"></script>
-        <script>
-            (() => {
-                window.GenerativeArt.addArtwork(
-                    'playground',
-                    ({ canvas, regenerateButton }) => {
-                        window.GenerativeArt.playground.run(canvas);
-
-                        regenerateButton.addEventListener('click', () =>
-                            window.GenerativeArt.playground.run(canvas)
-                        );
-                    }
-                );
-            })();
-        </script>
-
-        <script src="lib/more-waves.js"></script>
-        <script>
-            (() => {
-                window.GenerativeArt.addArtwork(
-                    'moreWaves',
-                    ({ canvas, regenerateButton }) => {
-                        window.GenerativeArt.moreWaves.run(canvas);
-
-                        regenerateButton.addEventListener('click', () =>
-                            window.GenerativeArt.moreWaves.run(canvas)
-                        );
-                    }
-                );
-            })();
-        </script>
-
-        <script src="lib/semi-circles.js"></script>
-        <script>
-            (() => {
-                window.GenerativeArt.addArtwork(
-                    'semiCircles',
-                    ({ canvas, regenerateButton }) => {
-                        window.GenerativeArt.semiCircles.run(canvas);
-
-                        regenerateButton.addEventListener('click', () =>
-                            window.GenerativeArt.semiCircles.run(canvas)
-                        );
-                    }
-                );
-            })();
-        </script>
-
-        <script src="lib/circle-waves.js"></script>
-        <script>
-            (() => {
-                window.GenerativeArt.addArtwork(
-                    'circleWaves',
-                    ({ canvas, regenerateButton }) => {
-                        window.GenerativeArt.circleWaves.run(canvas);
-
-                        regenerateButton.addEventListener('click', () =>
-                            window.GenerativeArt.circleWaves.run(canvas)
-                        );
-                    }
-                );
-            })();
-        </script>
-
-        <script src="lib/lines.js"></script>
-        <script>
-            (() => {
-                window.GenerativeArt.addArtwork(
-                    'lines',
-                    ({ canvas, regenerateButton }) => {
-                        const colors = ['#941B0C', '#BC3908', '#F6AA1C'];
-                        const options = {
-                            ...window.GenerativeArt.lines.defaultOptions,
-                            maxDepth: 8,
-                            colors,
-                            lineWidthFactor: 0.0045,
-                            count: 5
-                        };
-                        window.GenerativeArt.lines.run(canvas, options);
-
-                        regenerateButton.addEventListener('click', () =>
-                            window.GenerativeArt.lines.run(canvas, options)
-                        );
-                    }
-                );
-            })();
-        </script>
-
-        <script src="lib/waves.js"></script>
-        <script>
-            (() => {
-                window.GenerativeArt.addArtwork(
-                    'waves',
-                    ({ canvas, regenerateButton }) => {
-                        // const colors = ['#941B0C', '#BC3908', '#F6AA1C'];
-                        const options = {
-                            ...window.GenerativeArt.waves.defaultOptions
-                        };
-                        window.GenerativeArt.waves.run(canvas, options);
-
-                        regenerateButton.addEventListener('click', () =>
-                            window.GenerativeArt.waves.run(canvas, options)
-                        );
-                    }
-                );
-            })();
-        </script>
-
-        <script src="lib/circles.js"></script>
-        <script>
-            (() => {
-                window.GenerativeArt.addArtwork(
-                    'circles',
-                    ({ canvas, regenerateButton }) => {
-                        // const colors = ['#941B0C', '#BC3908', '#F6AA1C'];
-                        const options = {
-                            ...window.GenerativeArt.circles.defaultOptions
-                        };
-                        window.GenerativeArt.circles.run(canvas, options);
-
-                        regenerateButton.addEventListener('click', () =>
-                            window.GenerativeArt.circles.run(canvas, options)
-                        );
-                    }
-                );
-            })();
-        </script>
-        <script src="lib/heat-waves.js"></script>
-        <script>
-            (() => {
-                window.GenerativeArt.addArtwork(
-                    'heatWaves',
-                    ({ canvas, regenerateButton }) => {
-                        // const colors = ['#941B0C', '#BC3908', '#F6AA1C'];
-                        const options = {
-                            ...window.GenerativeArt.heatWaves.defaultOptions
-                        };
-                        window.GenerativeArt.heatWaves.run(canvas, options);
-
-                        regenerateButton.addEventListener('click', () =>
-                            window.GenerativeArt.heatWaves.run(canvas, options)
-                        );
-                    }
-                );
-            })();
-        </script>
-
-        <script src="lib/short-lines.js"></script>
-        <script>
-            (() => {
-                window.GenerativeArt.addArtwork(
-                    'shortLines',
-                    ({ canvas, regenerateButton }) => {
-                        // const colors = ['#941B0C', '#BC3908', '#F6AA1C'];
-                        const options = {
-                            ...window.GenerativeArt.shortLines.defaultOptions
-                        };
-                        window.GenerativeArt.shortLines.run(canvas, options);
-
-                        regenerateButton.addEventListener('click', () =>
-                            window.GenerativeArt.shortLines.run(canvas, options)
-                        );
-                    }
-                );
-            })();
-        </script>
-
-        <script src="lib/segments.js"></script>
-        <script>
-            (() => {
-                window.GenerativeArt.addArtwork(
-                    'segments',
-                    ({ canvas, regenerateButton }) => {
-                        // const colors = ['#941B0C', '#BC3908', '#F6AA1C'];
-                        const options = {
-                            ...window.GenerativeArt.segments.defaultOptions
-                        };
-                        window.GenerativeArt.segments.run(canvas, options);
-
-                        regenerateButton.addEventListener('click', () =>
-                            window.GenerativeArt.segments.run(canvas, options)
-                        );
-                    }
-                );
-            })();
+            const cirlceArtwork = CircleArtwork();
+            GenerativeArt.addArtwork(cirlceArtwork, {
+                ...cirlceArtwork.defaultOptions,
+            });
+            const heatWavesArtwork = HeatWavesArtwork();
+            GenerativeArt.addArtwork(heatWavesArtwork, {
+                ...heatWavesArtwork.defaultOptions,
+            });
+            const shortLinesArtwork = ShortLinesArtwork();
+            GenerativeArt.addArtwork(shortLinesArtwork, {
+                ...shortLinesArtwork.defaultOptions,
+            });
+            const segmentsArtwork = SegmentsArtwork();
+            GenerativeArt.addArtwork(segmentsArtwork, {
+                ...segmentsArtwork.defaultOptions,
+            });
         </script>
     </body>
 </html>

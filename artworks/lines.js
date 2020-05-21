@@ -1,4 +1,4 @@
-(() => {
+const artwork = () => {
     const defaultOptions = {
         step: 75,
         maxDepth: 12,
@@ -86,12 +86,11 @@
         return canvas;
     };
 
-    const artwork = { run, defaultOptions, name: 'lines'};
+    return {
+        run,
+        defaultOptions,
+        name: 'Lines'
+    };
+}
 
-    if (typeof module !== "undefined" && typeof module.exports !== "undefined") {
-        module.exports = artwork;
-    } else {
-        window.GenerativeArt = Object.assign({}, window.GenerativeArt, {[artwork.name]: artwork});
-    }
-
-})();
+export default artwork;
