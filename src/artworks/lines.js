@@ -1,14 +1,16 @@
 const artwork = () => {
   const defaultOptions = {
     step: 75,
-    maxDepth: 12,
+    maxDepth: 8,
     backgroundColor: 'white',
-    lineWidthFactor: 0.001,
-    colors: ['black'],
-    count: 3,
+    colors: ['#941B0C', '#BC3908', '#F6AA1C'],
+    lineWidthFactor: 0.0045,
+    count: 5,
   };
 
-  const run = (canvas, options = defaultOptions) => {
+  const run = (canvas, o) => {
+    const options = { ...defaultOptions, ...o };
+    console.log(options);
     const context = canvas.getContext('2d');
     const size = canvas.width;
     const step = options.step;
@@ -69,8 +71,12 @@ const artwork = () => {
     const generate = () => {
       context.beginPath();
       // const startPoint = { x: size / 2, y: size / 2 };
-      const startPoint = { x: getRandomInt(0, size), y: getRandomInt(0, size) };
+      const startPoint = {
+        x: getRandomInt(0, size),
+        y: getRandomInt(0, size),
+      };
       const color = colors[getRandomInt(0, colors.length)];
+      console.log(color.toString());
       addBranches({ x: startPoint.x, y: startPoint.y + step }, 0, color);
       addBranches({ x: startPoint.x, y: startPoint.y + step }, 0, color);
       addBranches({ x: startPoint.x, y: startPoint.y + step }, 0, color);

@@ -9,10 +9,33 @@ import HeatWavesArtwork from './artworks/heat-waves.js';
 import ShortLinesArtwork from './artworks/short-lines.js';
 import SegmentsArtwork from './artworks/segments.js';
 
-import { ArtWork } from './types/index';
+import { HRL_COLORS_PALETTES } from './lib/color-palettes';
 
-const GenerativeArt = {
-  addArtwork: (artwork: ArtWork, options: any = {}) => {
+import { ArtWork, Palette } from './types/index';
+
+class GenerativeArt {
+  artWorks: Array<ArtWork> = [];
+  activePalette: Palette = HRL_COLORS_PALETTES[0];
+
+  renderPalettes(palettes: Array<Palette>) {
+    const palettesContainer = document.querySelector('.palettes');
+    palettes.forEach((p) => {
+      const paletteContainer = document.createElement('div');
+      paletteContainer.className = 'palette';
+      p.forEach((c) => {
+        const colorContainer = document.createElement('div');
+        colorContainer.className = 'color';
+        colorContainer.style.backgroundColor = c.toString();
+        paletteContainer.appendChild(colorContainer);
+      });
+      paletteContainer.addEventListener('click', () => {
+        this.activePalette = p;
+      });
+      palettesContainer.appendChild(paletteContainer);
+    });
+  }
+
+  addArtwork(artwork: ArtWork, options: any = {}) {
     const artWorks = document.querySelector('.artworks');
     const artWorkContainer = document.createElement('div');
     artWorkContainer.classList.add('artwork');
@@ -27,7 +50,7 @@ const GenerativeArt = {
     const regenerateButton = document.createElement('button');
     regenerateButton.innerText = 'Regenerate';
     regenerateButton.addEventListener('click', () =>
-      artwork.run(canvas, options)
+      artwork.run(canvas, { ...options, colors: this.activePalette })
     );
 
     artWorkContainer.appendChild(artWorkHeadline);
@@ -40,46 +63,47 @@ const GenerativeArt = {
       artWorkContainer.appendChild(animateButton);
 
       animateButton.addEventListener('click', () =>
-        artwork.animate(canvas, options)
+        artwork.animate(canvas, { ...options, colors: this.activePalette })
       );
     }
 
     artWorks.appendChild(artWorkContainer);
 
-    artwork.run(canvas, options);
-  },
-};
+    artwork.run(canvas, { ...options, colors: this.activePalette });
 
-GenerativeArt.addArtwork(PlayGround());
-GenerativeArt.addArtwork(TrianglesArtwork());
-GenerativeArt.addArtwork(SemiCirclesArtwork());
-GenerativeArt.addArtwork(CicleWavesArtwork());
-const linesArtwork = LinesArtwork();
-GenerativeArt.addArtwork(linesArtwork, {
-  ...linesArtwork.defaultOptions,
-  maxDepth: 8,
-  colors: ['#941B0C', '#BC3908', '#F6AA1C'],
-  lineWidthFactor: 0.0045,
-  count: 5,
+    this.artWorks.push(artwork);
+  }
+}
+
+const generativeArt = new GenerativeArt();
+
+generativeArt.renderPalettes(HRL_COLORS_PALETTES);
+
+generativeArt.addArtwork(PlayGround());
+generativeArt.addArtwork(TrianglesArtwork(), {
+  colors: HRL_COLORS_PALETTES[0],
 });
+generativeArt.addArtwork(SemiCirclesArtwork());
+generativeArt.addArtwork(CicleWavesArtwork());
+generativeArt.addArtwork(LinesArtwork());
 const wavesArtwork = WavesArtwork();
-GenerativeArt.addArtwork(wavesArtwork, {
+generativeArt.addArtwork(wavesArtwork, {
   ...wavesArtwork.defaultOptions,
 });
 
 const cirlceArtwork = CircleArtwork();
-GenerativeArt.addArtwork(cirlceArtwork, {
+generativeArt.addArtwork(cirlceArtwork, {
   ...cirlceArtwork.defaultOptions,
 });
 const heatWavesArtwork = HeatWavesArtwork();
-GenerativeArt.addArtwork(heatWavesArtwork, {
+generativeArt.addArtwork(heatWavesArtwork, {
   ...heatWavesArtwork.defaultOptions,
 });
 const shortLinesArtwork = ShortLinesArtwork();
-GenerativeArt.addArtwork(shortLinesArtwork, {
+generativeArt.addArtwork(shortLinesArtwork, {
   ...shortLinesArtwork.defaultOptions,
 });
 const segmentsArtwork = SegmentsArtwork();
-GenerativeArt.addArtwork(segmentsArtwork, {
+generativeArt.addArtwork(segmentsArtwork, {
   ...segmentsArtwork.defaultOptions,
 });
