@@ -1,5 +1,5 @@
 import { Palette } from '../types/index';
-import { HSLAColor, HexColor } from './colors';
+import { HSLAColor, HexColor, RGBAColor } from './colors';
 
 export const HRL_COLORS_PALETTES: Array<Palette> = [
   [
@@ -41,4 +41,10 @@ export const HRL_COLORS_PALETTES: Array<Palette> = [
     new HexColor('#FCBF49'),
   ],
   [new HexColor('#941B0C'), new HexColor('#BC3908'), new HexColor('#F6AA1C')],
+  [
+    new RGBAColor({ r: 0, g: 48, b: 73, a: 0.1 }),
+    new RGBAColor({ r: 214, g: 40, b: 40, a: 0.1 }),
+    new RGBAColor({ r: 247, g: 127, b: 0, a: 0.1 }),
+    new RGBAColor({ r: 252, g: 191, b: 73, a: 0.1 }),
+  ],
 ];

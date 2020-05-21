@@ -1,13 +1,13 @@
 import PlayGround from './artworks/playground';
 import TrianglesArtwork from './artworks/triangles';
-import SemiCirclesArtwork from './artworks/semi-circles.js';
-import CicleWavesArtwork from './artworks/circle-waves.js';
-import LinesArtwork from './artworks/lines.js';
-import WavesArtwork from './artworks/waves.js';
-import CircleArtwork from './artworks/circles.js';
-import HeatWavesArtwork from './artworks/heat-waves.js';
-import ShortLinesArtwork from './artworks/short-lines.js';
-import SegmentsArtwork from './artworks/segments.js';
+import SemiCirclesArtwork from './artworks/semi-circles';
+import CicleWavesArtwork from './artworks/circle-waves';
+import LinesArtwork from './artworks/lines';
+import WavesArtwork from './artworks/waves';
+import CircleArtwork from './artworks/circles';
+import HeatWavesArtwork from './artworks/heat-waves';
+import ShortLinesArtwork from './artworks/short-lines';
+import SegmentsArtwork from './artworks/segments';
 
 import { HRL_COLORS_PALETTES } from './lib/color-palettes';
 
@@ -86,24 +86,8 @@ generativeArt.addArtwork(TrianglesArtwork(), {
 generativeArt.addArtwork(SemiCirclesArtwork());
 generativeArt.addArtwork(CicleWavesArtwork());
 generativeArt.addArtwork(LinesArtwork());
-const wavesArtwork = WavesArtwork();
-generativeArt.addArtwork(wavesArtwork, {
-  ...wavesArtwork.defaultOptions,
-});
-
-const cirlceArtwork = CircleArtwork();
-generativeArt.addArtwork(cirlceArtwork, {
-  ...cirlceArtwork.defaultOptions,
-});
-const heatWavesArtwork = HeatWavesArtwork();
-generativeArt.addArtwork(heatWavesArtwork, {
-  ...heatWavesArtwork.defaultOptions,
-});
-const shortLinesArtwork = ShortLinesArtwork();
-generativeArt.addArtwork(shortLinesArtwork, {
-  ...shortLinesArtwork.defaultOptions,
-});
-const segmentsArtwork = SegmentsArtwork();
-generativeArt.addArtwork(segmentsArtwork, {
-  ...segmentsArtwork.defaultOptions,
-});
+generativeArt.addArtwork(WavesArtwork());
+generativeArt.addArtwork(CircleArtwork());
+generativeArt.addArtwork(HeatWavesArtwork());
+generativeArt.addArtwork(ShortLinesArtwork());
+generativeArt.addArtwork(SegmentsArtwork());

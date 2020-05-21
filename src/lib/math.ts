@@ -10,3 +10,6 @@ export const getRandomInt = (min: number, max: number): number => {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min)) + min;
 };
+
+export const clamp = (num: number, min: number, max: number) =>
+  num <= min ? min : num >= max ? max : num;

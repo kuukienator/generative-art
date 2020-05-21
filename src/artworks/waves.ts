@@ -1,21 +1,18 @@
-const artwork = () => {
+import { ArtWork, ArtWorkOptions } from '../types/index';
+import { getRandomInt } from '../lib/math';
+
+const artwork = (): ArtWork => {
   const defaultOptions = {
     step: 5,
     maxDepth: 12,
     backgroundColor: '#EAE2B7',
     lineWidthFactor: 0.0025,
-    colors: ['#003049', '#D62828', '#F77F00', '#FCBF49'],
     iterations: 15,
   };
 
-  const run = (canvas, options = defaultOptions) => {
+  const run = (canvas: HTMLCanvasElement, o: ArtWorkOptions) => {
+    const options = { ...defaultOptions, ...o };
     const context = canvas.getContext('2d');
-
-    const getRandomInt = (min, max) => {
-      min = Math.ceil(min);
-      max = Math.floor(max);
-      return Math.floor(Math.random() * (max - min)) + min;
-    };
     const size = canvas.width;
     const step = options.step;
     const lineWidth = size * options.lineWidthFactor;
@@ -41,7 +38,7 @@ const artwork = () => {
 
       const color = colors[getRandomInt(0, colors.length)];
       context.lineWidth = lineWidth + Math.random() * 3;
-      context.strokeStyle = color;
+      context.strokeStyle = color.toString();
       context.beginPath();
       for (let i = 0; i < line.length - 1; i++) {
         const xc = (line[i].x + line[i + 1].x) / 2;
@@ -61,7 +58,6 @@ const artwork = () => {
 
   return {
     run,
-    defaultOptions,
     name: 'Waves',
   };
 };

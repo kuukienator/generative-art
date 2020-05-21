@@ -1,13 +1,8 @@
-const artwork = () => {
-  const defaultOptions = {
-    step: 5,
-    maxDepth: 12,
-    backgroundColor: '#EAE2B7',
-    lineWidthFactor: 0.0025,
-    colors: ['#003049', '#D62828', '#F77F00', '#FCBF49'],
-  };
+import { ArtWork, ArtWorkOptions } from '../types/index';
+import { circleFilled } from '../lib/shapes';
 
-  const run = (canvas, options = defaultOptions) => {
+const artwork = (): ArtWork => {
+  const run = (canvas: HTMLCanvasElement, options: ArtWorkOptions) => {
     const context = canvas.getContext('2d');
     const size = canvas.width;
 
@@ -18,7 +13,13 @@ const artwork = () => {
 
     const padding = 5;
     const MAX_ITERATIONS = 20;
-    const drawCircle = (x, y, radius, iteration = 1) => {
+
+    const drawCircle = (
+      x: number,
+      y: number,
+      radius: number,
+      iteration: number = 1
+    ) => {
       if (iteration === MAX_ITERATIONS) {
         return;
       }
@@ -29,9 +30,7 @@ const artwork = () => {
         context.fillStyle = '#D62828';
       }
 
-      context.beginPath();
-      context.arc(x, y, radius, 0, 2 * Math.PI);
-      context.fill();
+      circleFilled(context, x, y, radius);
 
       const nextRadius = radius * 0.75;
       const a = Math.random() * 2 * Math.PI;
@@ -56,7 +55,6 @@ const artwork = () => {
 
   return {
     run,
-    defaultOptions,
     name: 'Circles',
   };
 };
