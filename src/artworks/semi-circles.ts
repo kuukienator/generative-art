@@ -2,9 +2,13 @@ import { ArtWork, ArtWorkOptions } from '../types/index';
 import { distance, getRandomInt } from '../lib/math';
 import { circleFilled, circleStroked, Circle } from '../lib/shapes';
 import { Color } from '../lib/colors';
+import AnimationEngine from '../lib/animation';
 
 const artwork = (): ArtWork => {
+  const animationEngine = AnimationEngine();
+
   const run = (canvas: HTMLCanvasElement, options: ArtWorkOptions) => {
+    animationEngine.cancel();
     const context = canvas.getContext('2d');
     const size = canvas.width;
 
@@ -64,8 +68,12 @@ const artwork = (): ArtWork => {
     return canvas;
   };
 
+  const animate = (canvas: HTMLCanvasElement, options: ArtWorkOptions) =>
+    animationEngine.animate(500, () => run(canvas, options));
+
   return {
     run,
+    animate,
     name: 'Semi Cirlces',
   };
 };

@@ -1,7 +1,7 @@
 import { Palette } from '../types/index';
 import { HSLAColor, HexColor, RGBAColor } from './colors';
 
-export const HRL_COLORS_PALETTES: Array<Palette> = [
+export const PALETTES: Array<Palette> = [
   [
     new HSLAColor({ h: 198, s: 63, l: 38 }),
     new HSLAColor({ h: 170, s: 40, l: 60 }),

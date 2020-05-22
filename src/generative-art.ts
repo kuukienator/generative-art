@@ -9,17 +9,16 @@ import HeatWavesArtwork from './artworks/heat-waves';
 import ShortLinesArtwork from './artworks/short-lines';
 import SegmentsArtwork from './artworks/segments';
 
-import { HRL_COLORS_PALETTES } from './lib/color-palettes';
+import { PALETTES } from './lib/color-palettes';
 
 import { ArtWork, Palette } from './types/index';
 
 class GenerativeArt {
   artWorks: Array<ArtWork> = [];
-  activePalette: Palette = HRL_COLORS_PALETTES[0];
+  activePalette: Palette = PALETTES[0];
 
   renderPalettes(palettes: Array<Palette>) {
-    const palettesContainer = document.querySelector('.palettes');
-    palettes.forEach((p) => {
+    const createPalette = (p: Palette): HTMLDivElement => {
       const paletteContainer = document.createElement('div');
       paletteContainer.className = 'palette';
       p.forEach((c) => {
@@ -28,8 +27,25 @@ class GenerativeArt {
         colorContainer.style.backgroundColor = c.toString();
         paletteContainer.appendChild(colorContainer);
       });
+
+      return paletteContainer;
+    };
+
+    const palettesContainer = document.querySelector('.palettes');
+    const activePalette = document.querySelector('.activePalette');
+    activePalette.addEventListener('click', () => {
+      palettesContainer.classList.toggle('show');
+    });
+    const activePaletteContainer = createPalette(palettes[0]);
+    activePalette.appendChild(activePaletteContainer);
+
+    palettes.forEach((p) => {
+      const paletteContainer = createPalette(p);
       paletteContainer.addEventListener('click', () => {
         this.activePalette = p;
+        palettesContainer.classList.remove('show');
+        activePalette.textContent = '';
+        activePalette.appendChild(createPalette(p));
       });
       palettesContainer.appendChild(paletteContainer);
     });
@@ -77,11 +93,11 @@ class GenerativeArt {
 
 const generativeArt = new GenerativeArt();
 
-generativeArt.renderPalettes(HRL_COLORS_PALETTES);
+generativeArt.renderPalettes(PALETTES);
 
 generativeArt.addArtwork(PlayGround());
 generativeArt.addArtwork(TrianglesArtwork(), {
-  colors: HRL_COLORS_PALETTES[0],
+  colors: PALETTES[0],
 });
 generativeArt.addArtwork(SemiCirclesArtwork());
 generativeArt.addArtwork(CicleWavesArtwork());

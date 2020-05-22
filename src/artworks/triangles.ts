@@ -1,10 +1,12 @@
 import { ArtWork, Point, ArtWorkOptions } from '../types/index';
 import { getRandomInt } from '../lib/math';
+import AnimationEngine from '../lib/animation';
 
 const artwork = (): ArtWork => {
-  let currentAnimationFrame = null;
+  const animationEngine = AnimationEngine();
 
   const run = (canvas: HTMLCanvasElement, options: ArtWorkOptions) => {
+    animationEngine.cancel();
     const context = canvas.getContext('2d');
     const size = canvas.width;
     const COLUMN_COUNT = 20;
@@ -61,37 +63,8 @@ const artwork = (): ArtWork => {
     return canvas;
   };
 
-  const animationLoop = (
-    stepSize: number = 1000,
-    animateCallback: Function
-  ) => {
-    animateCallback();
-    let start = null;
-
-    const step = (timestamp) => {
-      if (!start) {
-        start = timestamp;
-      }
-
-      const progress = timestamp - start;
-
-      if (progress >= stepSize) {
-        start = timestamp;
-        animateCallback();
-      }
-
-      currentAnimationFrame = window.requestAnimationFrame(step);
-    };
-
-    currentAnimationFrame = window.requestAnimationFrame(step);
-  };
-
-  const animate = (canvas: HTMLCanvasElement, options: ArtWorkOptions) => {
-    if (currentAnimationFrame) {
-      window.cancelAnimationFrame(currentAnimationFrame);
-    }
-    animationLoop(300, () => run(canvas, options));
-  };
+  const animate = (canvas: HTMLCanvasElement, options: ArtWorkOptions) =>
+    animationEngine.animate(300, () => run(canvas, options));
 
   return {
     run,

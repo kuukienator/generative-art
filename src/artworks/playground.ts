@@ -1,15 +1,14 @@
 //@ts-check
 
 import { getRandomInt, radians } from '../lib/math';
-import { ArtWork } from '../types/index';
+import { ArtWork, ArtWorkOptions } from '../types/index';
+import AnimationEngine from '../lib/animation';
 
 const artwork = (): ArtWork => {
-  let currentAnimationFrame = null;
+  const animationEngine = AnimationEngine();
 
-  const run = (canvas: HTMLCanvasElement) => {
-    if (currentAnimationFrame) {
-      window.cancelAnimationFrame(currentAnimationFrame);
-    }
+  const run = (canvas: HTMLCanvasElement, options: ArtWorkOptions) => {
+    animationEngine.cancel();
     const context = canvas.getContext('2d');
     const size = canvas.width;
     const COLUMN_COUNT = 20;
@@ -18,132 +17,6 @@ const artwork = (): ArtWork => {
     const clear = (ctx) => ctx.clearRect(0, 0, size, size);
 
     clear(context);
-    const HRL_COLORS_PALETTES = [
-      // 540d6e-ee4266-ffd23f-3bceac-0ead69
-      [
-        {
-          h: 198,
-          s: 63,
-          l: 38,
-        },
-        {
-          h: 170,
-          s: 40,
-          l: 60,
-        },
-        {
-          h: 139,
-          s: 36,
-          l: 78,
-        },
-        {
-          h: 71,
-          s: 100,
-          l: 87,
-        },
-        {
-          h: 344,
-          s: 100,
-          l: 54,
-        },
-      ],
-      [
-        {
-          h: 309,
-          s: 51,
-          l: 90,
-        },
-        {
-          h: 350,
-          s: 21,
-          l: 78,
-        },
-        {
-          h: 325,
-          s: 26,
-          l: 52,
-        },
-        {
-          h: 296,
-          s: 39,
-          l: 31,
-        },
-        {
-          h: 237,
-          s: 63,
-          l: 15,
-        },
-      ],
-      [
-        {
-          h: 352,
-          s: 70,
-          l: 70,
-        },
-        {
-          h: 13,
-          s: 90,
-          l: 58,
-        },
-        {
-          h: 248,
-          s: 31,
-          l: 23,
-        },
-        {
-          h: 173,
-          s: 70,
-          l: 35,
-        },
-        {
-          h: 71,
-          s: 58,
-          l: 64,
-        },
-      ],
-      [
-        {
-          h: 284,
-          s: 79,
-          l: 24,
-        },
-        {
-          h: 347,
-          s: 83,
-          l: 60,
-        },
-        {
-          h: 46,
-          s: 100,
-          l: 62,
-        },
-        {
-          h: 166,
-          s: 60,
-          l: 52,
-        },
-        {
-          h: 154,
-          s: 85,
-          l: 37,
-        },
-      ],
-      [
-        {
-          h: 198,
-          s: 63,
-          l: 38,
-        },
-        {
-          h: 170,
-          s: 40,
-          l: 60,
-        },
-      ],
-    ];
-    const colors = HRL_COLORS_PALETTES[3].map(
-      (color) => `hsl(${color.h}, ${color.s}%, ${color.l}%, 1)`
-    );
 
     const drawDebugCirle = (ctx, point) => {
       ctx.beginPath();
@@ -223,37 +96,8 @@ const artwork = (): ArtWork => {
     return canvas;
   };
 
-  const animationLoop = (
-    stepSize: number = 1000,
-    animateCallback: Function
-  ) => {
-    animateCallback();
-    let start = null;
-
-    const step = (timestamp) => {
-      if (!start) {
-        start = timestamp;
-      }
-
-      const progress = timestamp - start;
-
-      if (progress >= stepSize) {
-        start = timestamp;
-        animateCallback();
-      }
-
-      currentAnimationFrame = window.requestAnimationFrame(step);
-    };
-
-    currentAnimationFrame = window.requestAnimationFrame(step);
-  };
-
-  const animate = (canvas: HTMLCanvasElement) => {
-    if (currentAnimationFrame) {
-      window.cancelAnimationFrame(currentAnimationFrame);
-    }
-    animationLoop(200, () => run(canvas));
-  };
+  const animate = (canvas: HTMLCanvasElement, options: ArtWorkOptions) =>
+    animationEngine.animate(200, () => run(canvas, options));
 
   return {
     run,
