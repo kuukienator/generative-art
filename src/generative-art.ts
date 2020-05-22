@@ -96,9 +96,7 @@ const generativeArt = new GenerativeArt();
 generativeArt.renderPalettes(PALETTES);
 
 generativeArt.addArtwork(PlayGround());
-generativeArt.addArtwork(TrianglesArtwork(), {
-  colors: PALETTES[0],
-});
+generativeArt.addArtwork(TrianglesArtwork());
 generativeArt.addArtwork(SemiCirclesArtwork());
 generativeArt.addArtwork(CicleWavesArtwork());
 generativeArt.addArtwork(LinesArtwork());

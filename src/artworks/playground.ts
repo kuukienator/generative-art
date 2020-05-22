@@ -1,5 +1,3 @@
-//@ts-check
-
 import { getRandomInt, radians } from '../lib/math';
 import { ArtWork, ArtWorkOptions } from '../types/index';
 import AnimationEngine from '../lib/animation';
