@@ -1,6 +1,6 @@
-import { ArtWork, ArtWorkOptions, Point } from '../types/index';
-import { getRandomInt } from '../lib/math';
-import { Color } from '../lib/colors';
+import { ArtWork, ArtWorkOptions, Point } from '../../types/index';
+import { getRandomInt } from '../../lib/math';
+import { Color } from '../../lib/colors';
 
 const artwork = (): ArtWork => {
   const run = (canvas: HTMLCanvasElement, options: ArtWorkOptions) => {

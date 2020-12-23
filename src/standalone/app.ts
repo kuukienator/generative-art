@@ -2,7 +2,7 @@ const { createCanvas } = require('canvas');
 const fs = require('fs');
 const util = require('util');
 
-import artwork from '../artworks/circle-waves';
+import sketch from '../sketches/00001/index';
 import { PALETTES } from '../lib/color-palettes';
 
 const create = ({ id, index, options, run, name, outputPath }) =>
@@ -21,15 +21,11 @@ const create = ({ id, index, options, run, name, outputPath }) =>
 
 (async () => {
   const date = Date.now();
-  // const colors = ['#941B0C', '#BC3908', '#F6AA1C'];
-  // const colors = ['#d3bcc0', '#a5668b', '#69306d'];
-  const currentArtwork = artwork();
-  const artworkFilename = currentArtwork.id;
-  const options = { colors: PALETTES[0] };
+  const currentSketch = sketch();
+  const sketchFilename = currentSketch.id;
+  const options = { colors: PALETTES[2] };
 
-  const outputPath = `${process.cwd()}/out/${artworkFilename}`;
-
-  console.log(outputPath, process.cwd());
+  const outputPath = `${process.cwd()}/out/${sketchFilename}`;
 
   try {
     await util.promisify(fs.access)(outputPath);
@@ -42,18 +38,18 @@ const create = ({ id, index, options, run, name, outputPath }) =>
 
   for (let i = 0; i < 5; i++) {
     await create({
-      run: currentArtwork.run,
+      run: currentSketch.run,
       options,
       id: date,
       index: i,
-      name: currentArtwork.name,
+      name: currentSketch.name,
       outputPath,
     });
     console.log('completed:', i);
   }
 
   await util.promisify(fs.writeFile)(
-    `${outputPath}/configuration-${artworkFilename}-${date}.json`,
+    `${outputPath}/configuration-${sketchFilename}-${date}.json`,
     JSON.stringify(options)
   );
 

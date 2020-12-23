@@ -1,5 +1,5 @@
 import { ArtWork, ArtWorkOptions } from '../../types/index';
-import { getRandomInt } from '.../../lib/math';
+import { getRandomInt } from '../../lib/math';
 
 const artwork = (): ArtWork => {
   const defaultOptions = {
@@ -59,6 +59,7 @@ const artwork = (): ArtWork => {
   return {
     run,
     name: 'Waves',
+    id: '00001'
   };
 };
 

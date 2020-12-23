@@ -1,5 +1,5 @@
-import { ArtWork, ArtWorkOptions } from '../types/index';
-import { getRandomInt } from '../lib/math';
+import { ArtWork, ArtWorkOptions } from '../../types/index';
+import { getRandomInt } from '../../lib/math';
 
 const artwork = (): ArtWork => {
   const run = (canvas: HTMLCanvasElement, options: ArtWorkOptions) => {
@@ -64,6 +64,7 @@ const artwork = (): ArtWork => {
   return {
     run,
     name: 'Segments',
+    id: '00002'
   };
 };
 

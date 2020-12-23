@@ -3,11 +3,11 @@ import TrianglesArtwork from './artworks/triangles';
 import SemiCirclesArtwork from './artworks/semi-circles';
 import CicleWavesArtwork from './artworks/circle-waves';
 import LinesArtwork from './artworks/lines';
-import WavesArtwork from './artworks/waves';
+import WavesArtwork from './sketches/00001/index';
 import CircleArtwork from './artworks/circles';
-import HeatWavesArtwork from './artworks/heat-waves';
-import ShortLinesArtwork from './artworks/short-lines';
-import SegmentsArtwork from './artworks/segments';
+import HeatWavesArtwork from './sketches/00004/index';
+import ShortLinesArtwork from './sketches/00003/index';
+import SegmentsArtwork from './sketches/00002/index';
 
 import { PALETTES } from './lib/color-palettes';
 
