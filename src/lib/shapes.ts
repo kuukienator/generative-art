@@ -4,6 +4,13 @@ export interface Circle {
   r: number;
 }
 
+export interface Rect {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}
+
 export const circleFilled = (
   ctx: CanvasRenderingContext2D,
   x: number,
