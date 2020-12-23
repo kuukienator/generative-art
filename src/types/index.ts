@@ -4,6 +4,7 @@ export interface ArtWork {
   run: Function;
   animate?: Function;
   name: string;
+  id?: string;
 }
 
 export interface Point {

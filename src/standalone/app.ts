@@ -1,10 +1,9 @@
-const { createCanvas } = require("canvas");
-const fs = require("fs");
-const util = require("util");
+const { createCanvas } = require('canvas');
+const fs = require('fs');
+const util = require('util');
 
-// const artwork = require('./lib/segments');
-const artwork = require("./lib/circle-waves");
-// const artwork = require('./lib/semi-circles');
+import artwork from '../artworks/circle-waves';
+import { PALETTES } from '../lib/color-palettes';
 
 const create = ({ id, index, options, run, name, outputPath }) =>
   new Promise((resolve, reject) => {
@@ -16,43 +15,47 @@ const create = ({ id, index, options, run, name, outputPath }) =>
     );
     const stream = completedCanvas.createPNGStream();
     stream.pipe(out);
-    out.on("finish", resolve);
-    out.on("error", reject);
+    out.on('finish', resolve);
+    out.on('error', reject);
   });
 
 (async () => {
   const date = Date.now();
   // const colors = ['#941B0C', '#BC3908', '#F6AA1C'];
   // const colors = ['#d3bcc0', '#a5668b', '#69306d'];
-  const options = { ...artwork.defaultOptions };
+  const currentArtwork = artwork();
+  const artworkFilename = currentArtwork.id;
+  const options = { colors: PALETTES[0] };
 
-  const outputPath = `${__dirname}/out/${artwork.name}`;
+  const outputPath = `${process.cwd()}/out/${artworkFilename}`;
+
+  console.log(outputPath, process.cwd());
 
   try {
     await util.promisify(fs.access)(outputPath);
     await util.promisify(fs.mkdir)(outputPath);
   } catch (err) {
-    if (err.code !== "EEXIST") {
+    if (err.code !== 'EEXIST') {
       console.error(err);
     }
   }
 
   for (let i = 0; i < 5; i++) {
     await create({
-      run: artwork.run,
+      run: currentArtwork.run,
       options,
       id: date,
       index: i,
-      name: artwork.name,
+      name: currentArtwork.name,
       outputPath,
     });
-    console.log("completed:", i);
+    console.log('completed:', i);
   }
 
   await util.promisify(fs.writeFile)(
-    `${outputPath}/configuration-${artwork.name}-${date}.json`,
+    `${outputPath}/configuration-${artworkFilename}-${date}.json`,
     JSON.stringify(options)
   );
 
-  console.log("All done 👍");
+  console.log('All done 👍');
 })();

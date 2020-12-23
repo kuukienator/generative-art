@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsc --project standalone.tsconfig.json && node standalone-build/standalone/app.js",
     "build": "webpack",
     "watch": "webpack -w",
     "format": "prettier src --write"
@@ -12,7 +13,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "canvas": "^2.6.1"
+    "canvas": "^2.6.1",
+    "request": "^2.88.2"
   },
   "devDependencies": {
     "awesome-typescript-loader": "^5.2.1",

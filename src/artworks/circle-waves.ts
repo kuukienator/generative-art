@@ -79,6 +79,7 @@ const artwork = (): ArtWork => {
   return {
     run,
     name: 'Circle Waves',
+    id: 'circleWaves',
   };
 };
 
